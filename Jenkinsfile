@@ -28,7 +28,7 @@ pipeline {
     
         stage('deploym to vm 1') {
             steps{
-                sshagent (credentials: ['ssh-deploy']) {
+                sshagent (credentials: ['ssh-deployment-1']) {
                     sh '''
                         ansible-playbook -i ~/workspace/ansible-project/ansible-test-jenkins/hosts.yml -l deploymentjenkins ~/workspace/ansible-project/ansible-test-jenkins/playbooks/django-project-install.yml
                     '''
