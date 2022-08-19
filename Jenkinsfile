@@ -32,6 +32,7 @@ pipeline {
                         ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/postgres.yml
                     '''
                 }
+            }
         }
         
     
