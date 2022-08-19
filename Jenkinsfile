@@ -29,8 +29,8 @@ pipeline {
             steps {
                 ssshagent (credentials: ['ssh-deployment-1']) {
                     sh '''
-                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/postgres.yml
-                    '''
+                       ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/postgres.yml
+                       '''
                 }
             }
         }
