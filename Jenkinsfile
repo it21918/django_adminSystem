@@ -25,16 +25,17 @@ pipeline {
             }
         }
         
-        stage('Setup DB') {
+        stage('Prepare DB') {
             steps {
-                ssshagent (credentials: ['ssh-deployment-1']) {
+                sshagent (credentials: ['ssh-deployment-1']) {
                     sh '''
-                       ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/postgres.yml
-                       '''
-                }
+                        pwd
+                        echo $WORKSPACE
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/postgres.yml
+                        '''
+            }
             }
         }
-        
     
         stage('deploym to vm 1') {
             steps{
