@@ -20,7 +20,7 @@ pipeline {
                     pip install -r requirements.txt
                     cd adminSystem
                     cp adminSystem/.env.example adminSystem/.env
-                    ./manage.py test'''
+                    sudo ./manage.py test'''
             }
         }
         
