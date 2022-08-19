@@ -20,6 +20,7 @@ pipeline {
                     pip install -r requirements.txt
                     cd adminSystem
                     cp adminSystem/.env.example adminSystem/.env
+                    chmod +x manage.py
                     ./manage.py test'''
             }
         }
