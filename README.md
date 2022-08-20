@@ -1,11 +1,11 @@
 # Clone and run project
 ```bash
 git clone https://github.com/it21998/devopsAdmin.git
-python -m venv myvenv
+python3 -m venv myvenv
 source myvenv/bin/activate
 pip install -r requirements.txt
 cd adminSystem
-cp adminSystem/.env.example student_management/.env
+cp adminSystem/.env.example adminSystem/.env
 ```
 edit adminSystem/.env file to define
 ```vim
