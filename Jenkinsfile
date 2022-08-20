@@ -36,6 +36,33 @@ pipeline {
             }
             }
         }
+        stage('install ansible prerequisites') {
+            steps {
+                sh '''
+                    ansible-galaxy install jebovic.mailhog
+                    ansible-galaxy install geerlingguy.postgresql
+                '''
+
+                sh '''
+                    mkdir -p ~/workspace/ansible-django/files/certs
+                    cd ~/workspace/ansible-django/files/certs
+                    openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 365 --nodes -subj '/C=GR/O=myorganization/OU=it/CN=myorg.com'
+                '''
+            }
+        }
+        stage('Prepare mailhog') {
+            steps{
+                sshagent (credentials: ['ssh-deployment-1']) {
+                    sh '''
+                        pwd
+                        echo $WORKSPACE
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/mailhog.yml
+                    '''
+                }
+
+            }
+
+        }
     
         stage('deploym to vm 1') {
             steps{
