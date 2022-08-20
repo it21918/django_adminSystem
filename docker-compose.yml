@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: Dockerfile
     env_file:
-     - ./student_management/student_management/.env
+     - ./adminSystem/adminSystem/.env
     ports:
       - "8000:8000"
     volumes:
