@@ -24,18 +24,7 @@ pipeline {
                     ./manage.py test'''
             }
         }
-        
-        stage('Prepare DB') {
-            steps {
-                sshagent (credentials: ['ssh-deployment-1']) {
-                    sh '''
-                        pwd
-                        echo $WORKSPACE
-                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/postgres.yml
-                        '''
-            }
-            }
-        }
+
         stage('install ansible prerequisites') {
             steps {
                 sh '''
@@ -49,7 +38,20 @@ pipeline {
                     openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 365 --nodes -subj '/C=GR/O=myorganization/OU=it/CN=myorg.com'
                 '''
             }
+        }        
+        
+        stage('Prepare DB') {
+            steps {
+                sshagent (credentials: ['ssh-deployment-1']) {
+                    sh '''
+                        pwd
+                        echo $WORKSPACE
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/postgres.yml
+                        '''
+            }
+            }
         }
+
         stage('Prepare mailhog') {
             steps{
                 sshagent (credentials: ['ssh-deployment-1']) {
