@@ -52,7 +52,7 @@ pipeline {
             }
         }
         
-        stage('deploy docker userSystem image to vm 1') {
+        stage('deploy docker adminSystem image to vm 1') {
             steps {
                 sshagent (credentials: ['ssh-deployment-1']) {
                     sh '''
