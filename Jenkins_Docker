@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh '''
                     ansible-galaxy install geerlingguy.docker
-                    ansible-galaxy install gerrlingguy.pip
+                    ansible-galaxy install geerlingguy.pip
                     ansible-galaxy install geerlingguy.postgresql
                 '''
 
