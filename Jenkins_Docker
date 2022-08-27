@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'main', url: 'https://github.com/it21918/django_adminSystem.git'
+
+                
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh '''
+                    python3 -m venv myvenv
+                    source myvenv/bin/activate
+                    pip install -r requirements.txt
+                    cd adminSystem
+                    cp adminSystem/.env.example adminSystem/.env
+                    chmod +x manage.py
+                    ./manage.py test'''
+            }
+        }
+        
+        
+        stage('Prepare Docker') {
+            steps {
+                sshagent (credentials: ['ssh-deployment-1']) {
+                    sh '''
+                        pwd
+                        echo $WORKSPACE
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/docker-install.yml
+                        '''
+            }
+            }
+        }
+        
+        stage('deploy docker userSystem image to vm 1') {
+            steps {
+                sshagent (credentials: ['ssh-deployment-1']) {
+                    sh '''
+                        pwd
+                        echo $WORKSPACE
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/django-adminSystem-docker.yml
+                        '''
+            }
+            }
+        }
+    
+
+    }
+}
