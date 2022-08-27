@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:13
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       - POSTGRES_USER=myprojectuser
       - POSTGRES_PASSWORD=password
@@ -27,7 +27,7 @@ services:
     env_file:
      - ./adminSystem/adminSystem/.env
     ports:
-      - "8000:8000"
+      - "8001:8000"
     volumes:
       - static_volume:/app/static
     depends_on:
@@ -41,7 +41,7 @@ services:
       - static_volume:/app/static
     ports:
       # - "443:443"
-      - "80:80"
+      - "81:80"
     depends_on:
       - django
     restart:
