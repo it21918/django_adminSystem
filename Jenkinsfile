@@ -30,7 +30,7 @@ pipeline {
             steps{
                 sshagent (credentials: ['ssh-deploy']) {
                     sh '''
-                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/ansible-test-jenkins/playbooks/django-install-microk8s-adminSystem.yml
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/django-install-microk8s-adminSystem.yml
                     '''
                 }
 
