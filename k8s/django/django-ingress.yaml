@@ -13,4 +13,4 @@ spec:
           service:
             name: django-clip
             port:
-              number: 8002
+              number: 8000
