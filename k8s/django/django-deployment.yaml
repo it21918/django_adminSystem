@@ -23,7 +23,7 @@ spec:
         - name: django
           image: it21918/mydjangoapp
           ports:
-            - containerPort: 8000
+            - containerPort: 8002
           envFrom:
             - configMapRef:
                 name: django-config
