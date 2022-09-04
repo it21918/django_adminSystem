@@ -25,18 +25,15 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-#                   name: pg-user
-                  name: myprojectuser
+                  name: pg-user
                   key: PGUSER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-#                   name: pg-user
-                  name: password
+                  name: pg-user
                   key: PGPASSWORD
             - name: POSTGRES_DB
-#               value: test_db
-                value: myproject
+              value: test_db
           volumeMounts:
             - name: pg-database-persistent-volume-storage
               mountPath: /var/lib/postgresql/data
