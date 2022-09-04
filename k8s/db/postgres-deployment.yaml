@@ -20,7 +20,7 @@ spec:
         - name: postgres
           image: "postgres:11"
           ports:
-            - containerPort: 5434
+            - containerPort: 5432
           env:
             - name: POSTGRES_USER
               valueFrom:
