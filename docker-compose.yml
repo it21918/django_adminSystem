@@ -24,7 +24,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - dj_postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB=myproject
       - POSTGRES_USER=myprojectuser
