@@ -13,12 +13,12 @@ spec:
         component: django
     spec:
       initContainers:
-        - name: django-init
-          image: it21998/mydjangoapp
-          envFrom:
-          - configMapRef:
-              name: django-config
-          command: ["/bin/bash", "-c", "python manage.py makemigrations && python manage.py migrate"]
+#         - name: django-init
+#           image: it21998/mydjangoapp
+#           envFrom:
+#           - configMapRef:
+#               name: django-config
+#           command: ["/bin/bash", "-c", "python manage.py makemigrations && python manage.py migrate"]
       containers:
         - name: django
           image: it21998/mydjangoapp
