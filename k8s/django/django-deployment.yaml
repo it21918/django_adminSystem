@@ -14,7 +14,7 @@ spec:
     spec:
       initContainers:
         - name: django-init
-          image: it21918/adminSystem
+          image: it21998/mydjangoapp
           envFrom:
           - configMapRef:
               name: django-config
