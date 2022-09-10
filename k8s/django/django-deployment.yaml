@@ -21,7 +21,7 @@ spec:
 #           command: ["/bin/bash", "-c", "python manage.py makemigrations && python manage.py migrate"]
       containers:
         - name: django
-          image: adminSytem_django
+          image: it21998/mydjangoapp
           ports:
             - containerPort: 8000
           envFrom:
