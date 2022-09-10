@@ -4,7 +4,7 @@ metadata:
   name: fastapi-ingress
 spec:
   rules:
-  - host: "django-21918.cloudns.ph"
+  - host: "django-21998.cloudns.ph"
     http:
       paths:
       - path: /
