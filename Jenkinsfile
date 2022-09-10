@@ -28,7 +28,7 @@ pipeline {
     
         stage('deploym to vm 1') {
             steps{
-                sshagent (credentials: ['ssh-deployment-1']) {
+                sshagent (credentials: ['ssh-deploy']) {
                     sh '''
                         ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/django-install-microk8s-adminSystem.yml
                     '''
