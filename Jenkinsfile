@@ -24,11 +24,11 @@ pipeline {
                     ./manage.py test'''
             }
         }
-
         stage('install ansible prerequisites') {
             steps {
                 sh '''
-                    ansible-galaxy install jebovic.mailhog
+                    ansible-galaxy install geerlingguy.docker
+                    ansible-galaxy install geerlingguy.pip
                     ansible-galaxy install geerlingguy.postgresql
                 '''
 
@@ -38,44 +38,32 @@ pipeline {
                     openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 365 --nodes -subj '/C=GR/O=myorganization/OU=it/CN=myorg.com'
                 '''
             }
-        }        
+        }   
         
-        stage('Prepare DB') {
+        stage('Prepare Docker') {
             steps {
                 sshagent (credentials: ['ssh-deployment-1']) {
                     sh '''
                         pwd
                         echo $WORKSPACE
-                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/postgres.yml
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/docker-install.yml
                         '''
             }
             }
         }
-
-        stage('Prepare mailhog') {
-            steps{
+        
+        stage('deploy docker adminSystem image to vm 1') {
+            steps {
                 sshagent (credentials: ['ssh-deployment-1']) {
                     sh '''
                         pwd
                         echo $WORKSPACE
-                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/mailhog.yml
-                    '''
-                }
-
+                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l database ~/workspace/ansible-django/playbooks/django-adminSystem-docker.yml
+                        '''
             }
-
+            }
         }
     
-        stage('deploym to vm 1') {
-            steps{
-                sshagent (credentials: ['ssh-deployment-1']) {
-                    sh '''
-                        ansible-playbook -i ~/workspace/ansible-django/hosts.yml -l deploymentservers ~/workspace/ansible-django/playbooks/django-project-install-adminSystem.yml
-                    '''
-                }
 
-            }
-
-        }
     }
 }
